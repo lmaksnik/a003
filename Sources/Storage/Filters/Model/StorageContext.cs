@@ -18,9 +18,19 @@ namespace Storage.Filters.Model {
 
 		public bool Handled { get; set; }
 
-		public StreamInfo Result { get; set; }
+		public object Result { get; set; }
 
 		public Exception Exception { get; set; }
+	}
+
+	public class StorageContext<TResult> : StorageContext {
+
+		internal StorageContext(StreamInfo info, StorageOwner storageOwner, StorageFilterAction action) : base(info, storageOwner, action) {}
+
+		public new TResult Result {
+			get => (TResult)base.Result;
+			set => base.Result = value;
+		}
 	}
 
 	public enum StorageFilterAction {
